@@ -37,5 +37,20 @@ public class ProjectCalculatorImc extends Application {
             double imc = weight / (height * height);
             labelResult.setText(String.format("Your IMS is: %.2f", imc));
         });
+
+        //Layout vertical
+        VBox layout = new VBox(10,labelWeight, fieldWeigth, labelHeigth, fieldHeight, buttonCalculate, labelResult);
+        layout.setPadding(new Insets(10));
+        layout.setAlignment(Pos.CENTER);
+
+        //Cena e palco
+        Scene scene = new Scene(layout, 300,250);
+        stage.setTitle("Calculator or IMC");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
