@@ -7,10 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
+import java.util.Locale;
+
 
 public class ProjectCalculatorImc extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         //Etique para os campos de entrada
         Label labelWeight = new Label("Weight");
@@ -30,12 +32,17 @@ public class ProjectCalculatorImc extends Application {
         Button buttonCalculate = new Button("Calculate IMC");
         buttonCalculate.setOnAction(e -> {
 
-            //String sendo transformada em double
-            double weight = Double.parseDouble(fieldWeigth.getText());
-            double height = Double.parseDouble(fieldHeight.getText());
+            try {
+                //String sendo transformada em double
+                double weight = Double.parseDouble(fieldWeigth.getText().replace(',' , '.'));
+                double height = Double.parseDouble(fieldHeight.getText().replace(',' , '.'));
 
-            double imc = weight / (height * height);
-            labelResult.setText(String.format("Your IMS is: %.2f", imc));
+                double imc = weight / (height * height);
+                labelResult.setText(String.format("Your IMS is: %.2f", imc));
+            }catch (NumberFormatException ex){
+                labelResult.setText("Valor informado é inválido: Favor adicionar um valor compativel");
+                ex.printStackTrace();
+            }
         });
 
         //Layout vertical
@@ -44,7 +51,7 @@ public class ProjectCalculatorImc extends Application {
         layout.setAlignment(Pos.CENTER);
 
         //Cena e palco
-        Scene scene = new Scene(layout, 300,250);
+        Scene scene = new Scene(layout, 350,250);
         stage.setTitle("Calculator or IMC");
         stage.setScene(scene);
         stage.show();
